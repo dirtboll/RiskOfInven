@@ -1,0 +1,29 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern":
+  [
+    "afa",
+    "x x",
+    "xxx"
+  ],
+  "key":
+  {
+    "x":
+    {
+      "tag": "minecraft:leather_group"
+    },
+    "a":
+    {
+      "item": "minecraft:string"
+    },
+    "f":
+    {
+      "item": "minecraft:totem_of_undying"
+    }
+  },
+  "result":
+  {
+    "item": "riskofinven:risk_pouch",
+    "count": 1
+  }
+}
