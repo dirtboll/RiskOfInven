@@ -2,7 +2,6 @@ package xyz.xmaximuskl.riskofinven.capabilities;
 
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.nbt.INBT;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.items.ItemStackHandler;
 
@@ -23,6 +22,10 @@ public class RiskPouchHandler extends ItemStackHandler {
     }
 
     public boolean isDirty() { return this.dirty; }
+
+    public Iterable<ItemStack> getStacks() {
+        return this.stacks;
+    }
 
     @Nonnull
     @Override

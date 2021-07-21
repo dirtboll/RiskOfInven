@@ -6,7 +6,6 @@ import net.minecraft.client.gui.screen.inventory.ContainerScreen;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.container.ClickType;
 import net.minecraft.inventory.container.Slot;
-import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.ITextComponent;
 
@@ -36,7 +35,8 @@ public class RiskPouchContainerScreen extends ContainerScreen<RiskPouchContainer
 
     @Override
     protected void slotClicked(Slot slot, int p_184098_2_, int p_184098_3_, ClickType p_184098_4_) {
-        if (slot != null && slot.getSlotIndex() == this.menu.itemSlot) return;
+        if (slot != null && slot.getSlotIndex() == this.menu.itemSlot
+                && slot.container instanceof PlayerInventory) return;
         super.slotClicked(slot, p_184098_2_, p_184098_3_, p_184098_4_);
     }
 }

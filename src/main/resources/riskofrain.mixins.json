@@ -1,10 +1,9 @@
 {
-  "required": true,
+  "required": false,
   "package": "xyz.xmaximuskl.riskofinven.mixins",
   "compatibilityLevel": "JAVA_8",
-  "refmap": "riskofrain.refmap.json",
   "mixins": [
-    "LivingEntityMixin"
+    "RORServerEventsMixin"
   ],
   "minVersion": "0.8"
 }

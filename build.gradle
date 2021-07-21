@@ -25,7 +25,7 @@ apply plugin: 'maven-publish'
 apply plugin: 'org.spongepowered.mixin'
 
 mixin {
-    add sourceSets.main, "${mod_id}.refmap.json"
+    add sourceSets.main, "riskofinven.refmap.json"
 }
 
 version = "${mod_version}"
@@ -40,8 +40,12 @@ minecraft {
     runs {
         client {
             workingDirectory project.file('run')
-            arg "-mixin.config=" + "${mod_id}" + ".mixins.json"
-            jvmArg "-Dmixin.env.disableRefMap=true"
+
+            arg "-mixin.config=riskofinven.mixins.json"
+            arg "-mixin.config=riskofrain.mixins.json"
+
+            jvmArg "-Dmixin.env.disableRefMap=false -Dmixin.hotSwap=true"
+            property 'mixin.env.refMapRemappingFile', "${project.projectDir}/build/createSrgToMcp/output.srg"
             property 'forge.logging.markers', 'SCAN,REGISTRIES,REGISTRYDUMP'
             property 'forge.logging.console.level', 'debug'
             mods {
@@ -52,8 +56,12 @@ minecraft {
         }
         server {
             workingDirectory project.file('run')
-            arg "-mixin.config=" + "${mod_id}".toString() + ".mixins.json"
-            jvmArg "-Dmixin.env.disableRefMap=true"
+
+            arg "-mixin.config=riskofinven.mixins.json"
+            arg "-mixin.config=riskofrain.mixins.json"
+
+            jvmArg "-Dmixin.env.disableRefMap=false -Dmixin.hotSwap=true"
+            property 'mixin.env.refMapRemappingFile', "${project.projectDir}/build/createSrgToMcp/output.srg"
             property 'forge.logging.markers', 'SCAN,REGISTRIES,REGISTRYDUMP'
             property 'forge.logging.console.level', 'debug'
             mods {
@@ -78,12 +86,20 @@ minecraft {
 
 sourceSets.main.resources { srcDir 'src/generated/resources' }
 
-dependencies {
-    minecraft 'net.minecraftforge:forge:1.16.5-36.1.0'
-    annotationProcessor 'org.spongepowered:mixin:0.8.2:processor'
+repositories {
+    maven {
+        url "https://www.cursemaven.com"
+        content {
+            includeGroup "curse.maven"
+        }
+    }
 }
 
-build.dependsOn processResources
+dependencies {
+    minecraft 'net.minecraftforge:forge:1.16.5-36.1.0'
+    annotationProcessor 'org.spongepowered:mixin:0.8.3:processor'
+    compile fg.deobf("curse.maven:riskofrainmod-406824:3375302")
+}
 
 jar {
     manifest {
@@ -95,7 +111,7 @@ jar {
             "Implementation-Version": project.version,
             "Implementation-Vendor" : project.group,
             "Implementation-Timestamp": new Date().format("yyyy-MM-dd'T'HH:mm:ssZ"),
-            "MixinConfigs": "${mod_id}.mixins.json"
+            "MixinConfigs": "${mod_id}.mixins.json, riskofrain.mixins.json"
         ])
     }
 }
